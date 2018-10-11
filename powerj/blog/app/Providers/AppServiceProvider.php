@@ -13,7 +13,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('layouts.sidebar', function($view){
+            $archives = \App\Post::archives();
+            $tags = \App\Tag::has('posts')->pluck('name');
+            $view->with(compact('archives', 'tags'));
+        });
+        view()->composer('posts.show', function($view){
+            $archives = \App\Post::archives();
+            $tags = \App\Tag::has('posts')->pluck('name');
+            $view->with(compact('archives', 'tags'));
+        });
     }
 
     /**
@@ -23,6 +32,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        //\App::singleton('App\Billing\Stripe', function () {
+        // $this->app->singleton(Stripe::class, function () {
+        //     return new Stripe(config('services.stripe.secret'));
+        // });
     }
 }

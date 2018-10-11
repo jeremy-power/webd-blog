@@ -3,6 +3,15 @@
 @section('content')
 <div class="col-md-8 blog-main">
     <h1> {{$post->title}} </h1>
+
+    @if(count($post->tags))
+        <ul>
+            @foreach ($post->tags as $tag)
+                <a href="/posts/tags/{{$tag->name}}"><li>{{$tag->name}}</li></a>
+            @endforeach
+        </ul>
+    @endif
+
     {{$post->body}}
     <hr>
     <div class="comments">
